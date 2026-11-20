@@ -20,7 +20,7 @@ export function Profile() {
     try {
       const file = await exportCorrections()
       if (navigator.canShare?.({ files: [file] })) {
-        await navigator.share({ files: [file], title: 'Gap Dari corrections' })
+        await navigator.share({ files: [file], title: 'DariLingo corrections' })
       } else {
         const a = document.createElement('a')
         a.href = URL.createObjectURL(file)
@@ -58,7 +58,7 @@ export function Profile() {
 
       {!isStandalone() && (
         <Card title="Install on your iPhone">
-          In Safari, tap <b>Share</b> → <b>Add to Home Screen</b>. Gap then opens full-screen and works offline.
+          In Safari, tap <b>Share</b> → <b>Add to Home Screen</b>. DariLingo then opens full-screen and works offline.
         </Card>
       )}
 

@@ -1,4 +1,4 @@
-# Gap (گپ) — learn Kabuli Dari
+# DariLingo — learn Kabuli Dari
 
 A Duolingo-style, installable web app (PWA) for learning **conversational Dari as spoken in Kabul**.
 Built for heritage/diaspora learners: speaking and listening first, romanized text with optional Dari script.
@@ -61,10 +61,10 @@ hyphens and punctuation.
    Fixes apply immediately in that person's lessons, and recordings replace the missing audio.
 2. When a word-bank answer is marked wrong but is really fine, **✓ My answer is also correct** adds it as an
    accepted alternative.
-3. **Me → Share my fixes** exports a `gap-corrections-*.json` file (with recordings) through the iOS share sheet.
+3. **Me → Share my fixes** exports a `darilingo-corrections-*.json` file (with recordings) through the iOS share sheet.
 4. The maintainer merges it for everyone:
    ```bash
-   npm run apply-corrections -- ~/Downloads/gap-corrections-2026-11-20.json
+   npm run apply-corrections -- ~/Downloads/darilingo-corrections-2026-11-20.json
    npm run check-content && git add content public/audio && git commit
    ```
    That updates `course.json`, writes audio to `public/audio/`, marks the items `reviewed` and credits the reviewer.

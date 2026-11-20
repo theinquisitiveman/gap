@@ -254,11 +254,11 @@ otp_expiry = 600
 
 # Sign-in is by 6-digit code, not link: links open Safari, not the home-screen app.
 [auth.email.template.magic_link]
-subject = "Your Gap sign-in code"
+subject = "Your DariLingo sign-in code"
 content_path = "./supabase/templates/code.html"
 
 [auth.email.template.confirmation]
-subject = "Your Gap sign-in code"
+subject = "Your DariLingo sign-in code"
 content_path = "./supabase/templates/code.html"
 
 # Uncomment to customize email template

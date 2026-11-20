@@ -51,7 +51,7 @@ export function Lesson({ items, pool, lessonId, practice = false, onExit }: Prop
           <Stat label="XP" value={`+${finished.xp}`} color="text-bee-dark" />
           <Stat label="Mistakes" value={String(mistakes)} color="text-sky" />
         </div>
-        <p className="mt-6 font-bold text-wolf">Shaabaash! <span className="dari">شاباش</span> — well done!</p>
+        <p className="mt-6 font-bold text-wolf">Ofareen! <span className="dari">آفرین</span> — well done!</p>
         <button type="button" className="btn btn-green mt-8" onClick={onExit}>Continue</button>
       </Screen>
     )
@@ -115,8 +115,9 @@ export function Lesson({ items, pool, lessonId, practice = false, onExit }: Prop
         {status !== 'idle' && (
           <div className="mb-4" role="status">
             <div className={`text-2xl font-black ${showCorrect ? 'text-feather-dark' : 'text-cardinal-dark'}`}>
-              {accepted ? 'Thanks — accepted from now on!' : showCorrect ? 'Nicely done!' : 'Correct answer:'}
+              {accepted ? 'Thanks — accepted from now on!' : showCorrect ? 'Ofareen!' : 'Lahudwalillah!'}
             </div>
+            {status === 'wrong' && !accepted && answerItem && <div className="text-sm font-black uppercase text-cardinal-dark">Correct answer:</div>}
             {answerItem && (
               <div className={`mt-1 text-lg font-bold ${showCorrect ? 'text-feather-dark' : 'text-cardinal-dark'}`}>
                 <DariText item={answerItem} /> <span className="font-semibold">— {answerItem.en}</span>

@@ -250,7 +250,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       by: settings.reviewerName || undefined, corrections: list,
     }
     const stamp = new Date().toISOString().slice(0, 10)
-    return new File([JSON.stringify(file, null, 2)], `gap-corrections-${stamp}.json`, { type: 'application/json' })
+    return new File([JSON.stringify(file, null, 2)], `darilingo-corrections-${stamp}.json`, { type: 'application/json' })
   }, [active, settings.reviewerName])
 
   const importCorrections = useCallback(async (text: string) => {

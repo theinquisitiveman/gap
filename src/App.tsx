@@ -35,7 +35,7 @@ export default function App() {
   return (
     <div className="flex h-full flex-col">
       <header className="safe-top flex items-center justify-between border-b-2 border-swan px-4 pb-3 font-black">
-        <span className="text-xl text-feather">gap <span className="dari text-base">گپ</span></span>
+        <span className="text-xl text-feather">DariLingo</span>
         <div className="flex gap-4">
           <span className="text-fox" aria-label="day streak">🔥 {currentStreak(progress, now)}</span>
           <span className="text-bee-dark" aria-label="XP">⚡ {progress.xp}</span>

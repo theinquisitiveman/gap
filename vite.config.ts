@@ -37,8 +37,8 @@ export default defineConfig(({ mode }) => ({
       registerType: 'autoUpdate',
       includeAssets: ['icons/*.png'],
       manifest: {
-        name: 'Gap — Learn Kabuli Dari',
-        short_name: 'Gap',
+        name: 'DariLingo — Learn Kabuli Dari',
+        short_name: 'DariLingo',
         description: 'Learn to speak the Dari of Kabul, one small lesson at a time.',
         theme_color: '#58cc02',
         background_color: '#ffffff',

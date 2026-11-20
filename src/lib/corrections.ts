@@ -25,7 +25,7 @@ export async function dataUrlToBlob(url: string): Promise<Blob> {
 export function parseCorrectionsFile(text: string): CorrectionsFile {
   const data = JSON.parse(text)
   if (data?.format !== 'gap-corrections' || !Array.isArray(data.corrections)) {
-    throw new Error('Not a Gap corrections file')
+    throw new Error('Not a DariLingo corrections file')
   }
   for (const c of data.corrections) {
     if (typeof c?.itemId !== 'string' || typeof c.updatedAt !== 'number' || typeof c.fields !== 'object') {
