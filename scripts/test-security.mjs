@@ -4,7 +4,12 @@
 import { createClient } from '@supabase/supabase-js'
 import { execSync } from 'node:child_process'
 
-const status = JSON.parse(execSync('npx supabase status -o json', { encoding: 'utf8' }).replace(/^[^{]*/, ''))
+// Local by default. To check a hosted project, set SUPABASE_TEST_URL, SUPABASE_TEST_PUBLISHABLE_KEY and
+// SUPABASE_TEST_SECRET_KEY: test users are then created with the admin API (no inbox to read) and removed afterwards.
+const REMOTE = !!process.env.SUPABASE_TEST_URL
+const status = REMOTE
+  ? { API_URL: process.env.SUPABASE_TEST_URL, PUBLISHABLE_KEY: process.env.SUPABASE_TEST_PUBLISHABLE_KEY, SECRET_KEY: process.env.SUPABASE_TEST_SECRET_KEY }
+  : JSON.parse(execSync('npx supabase status -o json', { encoding: 'utf8' }).replace(/^[^{]*/, ''))
 const URL_ = status.API_URL, KEY = status.PUBLISHABLE_KEY ?? status.ANON_KEY, MAIL = status.MAILPIT_URL ?? status.INBUCKET_URL
 const client = () => createClient(URL_, KEY, { auth: { persistSession: false, autoRefreshToken: false } })
 let failures = 0
@@ -12,6 +17,15 @@ const check = (name, ok, extra = '') => { console.log(`${ok ? '✓' : '✗'} ${n
 
 async function signIn(email) {
   const sb = client()
+  if (REMOTE) {
+    const admin = createClient(URL_, status.SECRET_KEY, { auth: { persistSession: false } })
+    const password = crypto.randomUUID()
+    const created = await admin.auth.admin.createUser({ email, password, email_confirm: true })
+    if (created.error) throw created.error
+    const { data, error } = await sb.auth.signInWithPassword({ email, password })
+    if (error) throw error
+    return { sb, id: data.user.id }
+  }
   const { error } = await sb.auth.signInWithOtp({ email })
   if (error) throw error
   // Read the code from the local mail catcher, as a user would from their inbox.
@@ -35,10 +49,10 @@ async function signIn(email) {
 }
 
 const stamp = Date.now()
-await fetch(`${MAIL}/api/v1/messages`, { method: 'DELETE' }).catch(() => {})
-const A = await signIn(`alice.${stamp}@example.com`)
-const B = await signIn(`bob.${stamp}@example.com`)
-check('two accounts created via email code', A.id && B.id && A.id !== B.id)
+if (!REMOTE) await fetch(`${MAIL}/api/v1/messages`, { method: 'DELETE' }).catch(() => {})
+const A = await signIn(`gap-test-alice.${stamp}@example.com`)
+const B = await signIn(`gap-test-bob.${stamp}@example.com`)
+check(REMOTE ? 'two test accounts created' : 'two accounts created via email code', A.id && B.id && A.id !== B.id)
 
 // --- Table: user_state
 const state = { progress: { xp: 42, completed: { 'u1-l1': 1 } }, settings: { showScript: true }, corrections: {} }
