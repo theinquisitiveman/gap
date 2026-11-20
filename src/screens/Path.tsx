@@ -36,8 +36,8 @@ export function Path({ onStart }: { onStart: (unit: Unit, lesson: Lesson) => voi
               const i = n
               const done = !!progress.completed[lesson.id]
               const current = lesson.id === currentId
-              // Heritage learners often know early material: any lesson up to the current one, plus the next, is open.
-              const locked = i > currentIndex + 1
+              // Duolingo-style: completed lessons and the current one are open; everything after is locked.
+              const locked = i > currentIndex
               return (
                 <li key={lesson.id} className="relative" style={{ transform: `translateX(${OFFSETS[i % OFFSETS.length]}px)` }}>
                   {current && (

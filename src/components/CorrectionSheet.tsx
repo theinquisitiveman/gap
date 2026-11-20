@@ -25,6 +25,7 @@ export function CorrectionSheet({ itemId, onClose }: { itemId: string; onClose: 
   recorderRef.current = recorder
 
   useEffect(() => () => recorderRef.current?.cancel(), [])
+  const sheetRef = useSwipeDown(onClose)
 
   const hasRecording = audio === undefined ? recordings.has(itemId) : !!audio
 
@@ -66,13 +67,16 @@ export function CorrectionSheet({ itemId, onClose }: { itemId: string; onClose: 
   return (
     <div className="fixed inset-0 z-50 flex items-end bg-black/40" onClick={onClose}>
       <div
+        ref={sheetRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="fix-title"
         className="anim-up safe-bottom max-h-[92%] w-full overflow-y-auto rounded-t-3xl bg-white px-4 pt-4"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-swan" />
+        <div className="-mx-4 -mt-4 mb-1 flex justify-center py-3" aria-hidden>
+          <div className="h-1.5 w-12 rounded-full bg-swan" />
+        </div>
         <h2 id="fix-title" className="text-xl font-black">Fix this phrase</h2>
         <p className="mb-4 text-sm text-wolf">
           Speak Kabuli Dari? Correct anything that sounds wrong. Your fix is used in every lesson right away.
@@ -136,4 +140,61 @@ export function CorrectionSheet({ itemId, onClose }: { itemId: string; onClose: 
       </div>
     </div>
   )
+}
+
+/**
+ * Swipe the sheet down to close it, like native iOS sheets. Works from anywhere on the sheet while it's
+ * scrolled to the top; otherwise the gesture scrolls the content as usual.
+ */
+function useSwipeDown(onClose: () => void) {
+  const ref = useRef<HTMLDivElement>(null)
+  const close = useRef(onClose)
+  close.current = onClose
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    let startY = 0, startT = 0, dy = 0, fromTop = false, dragging = false
+    const reset = (animate: boolean) => {
+      el.style.transition = animate ? 'transform .2s ease-out' : ''
+      el.style.transform = ''
+    }
+    const onStart = (e: TouchEvent) => {
+      startY = e.touches[0].clientY
+      startT = e.timeStamp
+      dy = 0
+      fromTop = el.scrollTop <= 0
+      dragging = false
+    }
+    const onMove = (e: TouchEvent) => {
+      dy = e.touches[0].clientY - startY
+      if (!fromTop || (dy <= 0 && !dragging)) return
+      dragging = true
+      e.preventDefault() // stop the page from scrolling/bouncing while the sheet follows the finger
+      el.style.transition = 'none'
+      el.style.transform = `translateY(${Math.max(0, dy)}px)`
+    }
+    const onEnd = (e: TouchEvent) => {
+      if (!dragging) return
+      dragging = false
+      const fast = dy / Math.max(1, e.timeStamp - startT) > 0.5
+      if (dy > 120 || (fast && dy > 40)) {
+        el.style.transition = 'transform .2s ease-in'
+        el.style.transform = 'translateY(100%)'
+        setTimeout(() => close.current(), 180)
+      } else reset(true)
+    }
+    el.addEventListener('touchstart', onStart, { passive: true })
+    el.addEventListener('touchmove', onMove, { passive: false })
+    el.addEventListener('touchend', onEnd)
+    const onCancel = () => { dragging = false; reset(true) }
+    el.addEventListener('touchcancel', onCancel)
+    return () => {
+      el.removeEventListener('touchcancel', onCancel)
+      el.removeEventListener('touchstart', onStart)
+      el.removeEventListener('touchmove', onMove)
+      el.removeEventListener('touchend', onEnd)
+    }
+  }, [])
+  return ref
 }
