@@ -1,12 +1,36 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
-export default defineConfig({
+/** Production-only Content Security Policy: scripts only from this site, network only to our Supabase project. */
+function csp(supabaseUrl: string | undefined): Plugin {
+  const api = supabaseUrl ? new URL(supabaseUrl).origin : ''
+  const policy = [
+    "default-src 'self'",
+    "script-src 'self'",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' https://fonts.gstatic.com",
+    `connect-src 'self' data: blob: ${api}`.trim(),
+    "img-src 'self' data: blob:",
+    "media-src 'self' data: blob:",
+    "worker-src 'self'",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+  ].join('; ')
+  return {
+    name: 'csp',
+    apply: 'build',
+    transformIndexHtml: (html) => html.replace('<head>', `<head>\n    <meta http-equiv="Content-Security-Policy" content="${policy}" />`),
+  }
+}
+
+export default defineConfig(({ mode }) => ({
   // GitHub Pages serves the app from /gap/; locally it's served from /.
   base: process.env.BASE_PATH ?? '/',
   plugins: [
+    csp(loadEnv(mode, process.cwd(), '').VITE_SUPABASE_URL),
     react(),
     tailwindcss(),
     VitePWA({
@@ -41,4 +65,4 @@ export default defineConfig({
     }),
   ],
   test: { environment: 'node' },
-})
+}))

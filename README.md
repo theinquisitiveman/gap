@@ -13,6 +13,37 @@ npm run build      # validates content, type-checks, builds dist/ with the servi
 Deploy `dist/` to any static HTTPS host (Vercel, Netlify, Cloudflare Pages). On iPhone: open in Safari →
 Share → **Add to Home Screen**. It runs full-screen and works offline.
 
+## Accounts & saved progress
+Learners can use the app as a guest, with progress saved on the device. They can also create a free account from **Me**
+or the banner on the Learn tab. Sign-in is passwordless: they enter their email and type the 6-digit code they're sent.
+It's a code rather than a link because links open Safari, not the home-screen app. Guest progress carries into the new
+account. Progress, settings, fixes and recordings then sync to every device they sign in on.
+
+Backend: [Supabase](https://supabase.com) (Postgres + Auth + Storage). Everything is in `supabase/`:
+- `migrations/…_user_state.sql`: one row per learner plus a private `recordings` bucket. **Row-level security** means
+  each account can only read or write its own row and its own `<user id>/` folder, and signed-out visitors see nothing.
+  The migration also sets size and type limits (512 KB of state, audio files only, under 2 MB each), and
+  `delete_my_account()` lets learners delete their own account.
+- `config.toml` + `templates/code.html`: email-code sign-in, codes expire after 10 minutes, at most one code per
+  email per minute.
+
+Signing out or deleting the account wipes the device. Production builds ship a Content Security Policy that only
+allows scripts from the site itself and network calls to the Supabase project.
+
+```bash
+npx supabase start          # local Supabase in Docker (sign-in emails appear at http://127.0.0.1:54324)
+npm run dev                 # uses .env.local → local Supabase
+npm run test:security       # 27 checks: users can't read or change each other's data or recordings, etc.
+```
+
+### Going live
+1. Create a project at supabase.com, then: `npx supabase login && npx supabase link --project-ref <ref>`
+   then `npx supabase db push && npx supabase config push`.
+2. **Email:** Supabase's built-in mailer only sends to your own team's addresses, so add custom SMTP (for example
+   Resend) under Authentication → SMTP before real learners sign up.
+3. In the GitHub repo, add variables `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY` (Project Settings → API), then
+   re-run the deploy workflow.
+
 ## Content
 All lessons live in `content/course.json`. Exercises are generated from each lesson's phrases, so editing a phrase
 updates every exercise that uses it. `npm run check-content` validates the file.

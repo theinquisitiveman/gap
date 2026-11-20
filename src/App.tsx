@@ -21,7 +21,7 @@ const TABS: { id: Tab; icon: string; label: string }[] = [
 ]
 
 export default function App() {
-  const { ready, course, progress } = useApp()
+  const { ready, course, progress, accountsEnabled, email } = useApp()
   const [tab, setTab] = useState<Tab>('learn')
   const [active, setActive] = useState<Active | null>(null)
 
@@ -44,6 +44,11 @@ export default function App() {
       </header>
 
       <main className="flex-1 overflow-y-auto pt-4">
+        {tab === 'learn' && accountsEnabled && !email && Object.keys(progress.completed).length > 0 && (
+          <button type="button" onClick={() => setTab('me')} className="mx-4 mb-6 block w-[calc(100%-2rem)] rounded-2xl border-2 border-sky bg-sky/10 px-4 py-3 text-left text-sm font-bold text-sky-dark">
+            💾 Create a free account to save your progress →
+          </button>
+        )}
         {tab === 'learn' && (
           <Path
             onStart={(unit, lesson) =>

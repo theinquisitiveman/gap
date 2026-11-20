@@ -47,8 +47,8 @@ export function mergeCorrections(local: Corrections, incoming: Correction[], kno
   for (const c of incoming) {
     if (!knownIds.has(c.itemId)) continue
     if (!out[c.itemId] || out[c.itemId].updatedAt < c.updatedAt) {
-      const { itemId, fields, alts, hasAudio, by, updatedAt } = c
-      out[c.itemId] = { itemId, fields, alts, hasAudio, by, updatedAt }
+      const { itemId, fields, alts, hasAudio, by, updatedAt, deleted } = c
+      out[c.itemId] = { itemId, fields, alts, hasAudio, by, updatedAt, ...(deleted ? { deleted } : {}) }
     }
   }
   return out

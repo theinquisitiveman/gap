@@ -25,7 +25,7 @@ export function validateCourse(course: Course): string[] {
 }
 
 export function mergeItem(item: Item, c: Correction | undefined): LiveItem {
-  if (!c) return item
+  if (!c || c.deleted) return item
   const alts = [...new Set([...(item.alts ?? []), ...(c.alts ?? [])])]
   return { ...item, ...c.fields, alts, corrected: true }
 }

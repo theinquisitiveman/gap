@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { Account } from '../components/Account'
 import { allItems } from '../lib/content'
 import { currentStreak } from '../lib/progress'
 import { useApp } from '../state'
@@ -52,6 +53,8 @@ export function Profile() {
         <Stat icon="⚡" value={progress.xp} label="total XP" />
         <Stat icon="📗" value={Object.keys(progress.completed).length} label="lessons" />
       </div>
+
+      <Account />
 
       {!isStandalone() && (
         <Card title="Install on your iPhone">

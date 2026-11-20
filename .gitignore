@@ -3,3 +3,6 @@ dist
 .DS_Store
 corrections/*.json
 *.tsbuildinfo
+.env*.local
+supabase/.temp
+supabase/.branches

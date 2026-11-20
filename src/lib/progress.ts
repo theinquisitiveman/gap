@@ -8,7 +8,7 @@ export interface Progress {
   daily: { day: string | null; xp: number }
   hearts: { count: number; updatedAt: number }
   completed: Record<string, number> // lessonId -> times completed
-  srs: Record<string, { box: number; due: number }>
+  srs: Record<string, { box: number; due: number; at?: number }>
 }
 
 export const emptyProgress = (now = Date.now()): Progress => ({
@@ -68,7 +68,7 @@ export function completeLesson(p: Progress, lessonId: string | null, xpGain: num
 export function recordAnswer(p: Progress, itemId: string, correct: boolean, now: number): Progress {
   const prev = p.srs[itemId]?.box ?? 0
   const box = correct ? Math.min(SRS_DAYS.length - 1, prev + 1) : 1
-  return { ...p, srs: { ...p.srs, [itemId]: { box, due: now + SRS_DAYS[box] * 86_400_000 } } }
+  return { ...p, srs: { ...p.srs, [itemId]: { box, due: now + SRS_DAYS[box] * 86_400_000, at: now } } }
 }
 
 /** Items to practice: overdue first, then the weakest. */

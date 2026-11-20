@@ -28,6 +28,10 @@ jobs:
       - run: npm run build
         env:
           BASE_PATH: /gap/
+          # Public values (row-level security protects data). Set under repo Settings → Secrets and variables → Variables.
+          # If unset, the app builds without accounts and saves progress on the device only.
+          VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

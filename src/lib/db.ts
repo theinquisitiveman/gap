@@ -1,4 +1,4 @@
-import { createStore, del, get, keys, set } from 'idb-keyval'
+import { clear, createStore, del, get, keys, set } from 'idb-keyval'
 import type { Corrections } from './types'
 import { emptyProgress, type Progress } from './progress'
 
@@ -32,3 +32,6 @@ export const getRecording = (itemId: string) => get<Blob>(itemId, audioStore)
 export const putRecording = (itemId: string, blob: Blob) => set(itemId, blob, audioStore)
 export const deleteRecording = (itemId: string) => del(itemId, audioStore)
 export const recordingIds = async () => new Set((await keys(audioStore)).map(String))
+
+/** Wipe everything on this device (used on sign-out and account deletion, so a shared phone keeps nothing). */
+export const clearAll = () => Promise.all([clear(store), clear(audioStore)])

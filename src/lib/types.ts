@@ -25,6 +25,8 @@ export interface Correction {
   hasAudio?: boolean
   by?: string
   updatedAt: number
+  /** Tombstone: the user reset this item. Kept so the reset syncs to their other devices. */
+  deleted?: boolean
 }
 
 export type Corrections = Record<string, Correction>
