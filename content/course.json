@@ -1,0 +1,366 @@
+{
+  "version": 1,
+  "about": "Colloquial Kabuli Dari for heritage learners. All items start as 'draft' and become 'reviewed' once a native Kabuli speaker confirms them (in-app corrections + npm run apply-corrections).",
+  "sources": [
+    "Author knowledge of colloquial Kabuli Dari (unverified draft)",
+    "Iranica, 'Kāboli (colloquial Persian)': https://iranicaonline.org/articles/kaboli-colloquial-persian",
+    "A. R. Salim, Conversational vs formal Dari handout (UC Berkeley, 2023): https://blc.berkeley.edu/wp-content/uploads/2023/04/Salim-handout-Sp23.pdf",
+    "Transparent Language Dari blog, Greetings: https://blogs.transparent.com/dari/2011/04/03/dari-greetings/",
+    "Indiana University CeLCAR Dari survival phrases: https://celcar.indiana.edu/materials/survival-phrases.html"
+  ],
+  "units": [
+    {
+      "id": "u1",
+      "title": "Greetings & respect",
+      "titleDari": "سلام و احوالپرسی",
+      "color": "green",
+      "lessons": [
+        {
+          "id": "u1-l1",
+          "title": "Hello",
+          "items": [
+            { "id": "salaam", "roman": "salaam", "dari": "سلام", "en": "hello", "status": "draft" },
+            { "id": "salaam-alaikum", "roman": "salaam alaikum", "dari": "السلام علیکم", "en": "peace be upon you (hello)", "notes": "The respectful greeting, especially to elders.", "status": "draft" },
+            { "id": "wa-alaikum", "roman": "wa alaikum salaam", "dari": "و علیکم السلام", "en": "and peace upon you (reply)", "status": "draft" },
+            { "id": "khosh-aamadi", "roman": "khosh aamadi", "dari": "خوش آمدی", "en": "welcome", "notes": "To one person, informal. Polite/plural: khosh aamaden.", "status": "draft" },
+            { "id": "bale", "roman": "bale", "dari": "بلی", "en": "yes", "status": "draft" },
+            { "id": "ne", "roman": "ne", "dari": "نی", "en": "no", "notes": "Kabuli 'ne'; written/formal 'na' (نه).", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u1-l2",
+          "title": "How are you?",
+          "items": [
+            { "id": "chetor-asti", "roman": "chetor asti?", "dari": "چطور استی؟", "en": "how are you? (informal)", "notes": "Formal: chetor hastid?", "status": "draft" },
+            { "id": "chetor-asten", "roman": "chetor asten?", "dari": "چطور استین؟", "en": "how are you? (polite)", "notes": "Use with elders and strangers.", "status": "draft" },
+            { "id": "khub-astum", "roman": "khub astum", "dari": "خوب استم", "en": "I am well", "notes": "Formal: khub hastam.", "status": "draft" },
+            { "id": "jor-asti", "roman": "jor asti?", "dari": "جور استی؟", "en": "are you doing well?", "notes": "Very Kabuli; 'jor' = well, healthy, fixed.", "status": "draft" },
+            { "id": "shukr", "roman": "shukr", "dari": "شکر", "en": "thank God (I'm fine)", "status": "draft" },
+            { "id": "chi-gap-as", "roman": "chi gap as?", "dari": "چی گپ اس؟", "en": "what's up?", "notes": "Literally 'what's the talk?'. Formal: che gap ast?", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u1-l3",
+          "title": "Thanks & goodbye",
+          "items": [
+            { "id": "tashakur", "roman": "tashakur", "dari": "تشکر", "en": "thank you", "status": "draft" },
+            { "id": "mehrabani", "roman": "mehrabani", "dari": "مهربانی", "en": "thanks, that's kind", "notes": "Also used like 'please' when offered something.", "status": "draft" },
+            { "id": "lutfan", "roman": "lutfan", "dari": "لطفاً", "en": "please", "status": "draft" },
+            { "id": "bebakhshen", "roman": "bebakhshen", "dari": "ببخشین", "en": "excuse me / sorry", "notes": "Formal: bebakhshid.", "status": "draft" },
+            { "id": "khuda-haafiz", "roman": "khuda haafiz", "dari": "خدا حافظ", "en": "goodbye", "status": "draft" },
+            { "id": "ba-amaan-e-khuda", "roman": "ba amaan-e khuda", "dari": "به امان خدا", "en": "go safely (in God's care)", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u1-l4",
+          "title": "Names & kindness",
+          "items": [
+            { "id": "jaan", "roman": "jaan", "dari": "جان", "en": "dear (after a name)", "notes": "Ahmad jaan, Khaala jaan — warm and respectful.", "status": "draft" },
+            { "id": "naamet-chi-as", "roman": "naamet chi as?", "dari": "نامت چی اس؟", "en": "what's your name?", "notes": "Polite: naametaan chi as? Formal: naam-e shuma chist?", "status": "draft" },
+            { "id": "naamem-as", "roman": "naamem Ahmad as", "dari": "نامم احمد اس", "en": "my name is Ahmad", "status": "draft" },
+            { "id": "az-didanet", "roman": "az didanet khosh shudum", "dari": "از دیدنت خوش شدم", "en": "nice to meet you", "status": "draft" },
+            { "id": "monda-nabaashi", "roman": "monda nabaashi", "dari": "مانده نباشی", "en": "may you not be tired", "notes": "Said to someone working or arriving from a journey.", "status": "draft" },
+            { "id": "zinda-baashi", "roman": "zinda baashi", "dari": "زنده باشی", "en": "thank you (may you live long)", "notes": "Classic reply to 'monda nabaashi'.", "status": "draft" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "u2",
+      "title": "Family",
+      "titleDari": "فامیل",
+      "color": "blue",
+      "lessons": [
+        {
+          "id": "u2-l1",
+          "title": "Parents & siblings",
+          "items": [
+            { "id": "madar", "roman": "madar", "dari": "مادر", "en": "mother", "status": "draft" },
+            { "id": "padar", "roman": "padar", "dari": "پدر", "en": "father", "status": "draft" },
+            { "id": "beraadar", "roman": "beraadar", "dari": "برادر", "en": "brother", "status": "draft" },
+            { "id": "khwaar", "roman": "khwaar", "dari": "خواهر", "en": "sister", "status": "draft" },
+            { "id": "bacha", "roman": "bacha", "dari": "بچه", "en": "boy / son", "status": "draft" },
+            { "id": "dokhtar", "roman": "dokhtar", "dari": "دختر", "en": "girl / daughter", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u2-l2",
+          "title": "Aunts, uncles, grandparents",
+          "items": [
+            { "id": "khaala", "roman": "khaala", "dari": "خاله", "en": "aunt (mother's sister)", "status": "draft" },
+            { "id": "amma", "roman": "amma", "dari": "عمه", "en": "aunt (father's sister)", "status": "draft" },
+            { "id": "kaakaa", "roman": "kaakaa", "dari": "کاکا", "en": "uncle (father's brother)", "status": "draft" },
+            { "id": "maamaa", "roman": "maamaa", "dari": "ماما", "en": "uncle (mother's brother)", "notes": "Careful: in Afghan Dari 'maamaa' is your mother's brother, not 'mom'.", "status": "draft" },
+            { "id": "madar-kalaan", "roman": "madar kalaan", "dari": "مادر کلان", "en": "grandmother", "notes": "Many families say 'bibi jaan'.", "status": "draft" },
+            { "id": "padar-kalaan", "roman": "padar kalaan", "dari": "پدر کلان", "en": "grandfather", "notes": "Many families say 'baba jaan' or 'agha jaan'.", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u2-l3",
+          "title": "My family",
+          "items": [
+            { "id": "madarem", "roman": "madarem", "dari": "مادرم", "en": "my mother", "status": "draft" },
+            { "id": "padaret", "roman": "padaret", "dari": "پدرت", "en": "your father", "status": "draft" },
+            { "id": "famil", "roman": "famil", "dari": "فامیل", "en": "family", "status": "draft" },
+            { "id": "khaana", "roman": "khaana", "dari": "خانه", "en": "home / house", "status": "draft" },
+            { "id": "madarem-khub-as", "roman": "madarem khub as", "dari": "مادرم خوب اس", "en": "my mother is well", "notes": "Kabuli 'as' for formal 'ast'.", "status": "draft" },
+            { "id": "famil-etaan-khub-as", "roman": "famil-etaan khub as?", "dari": "فامیل تان خوب اس؟", "en": "is your family well?", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u2-l4",
+          "title": "Talking about family",
+          "items": [
+            { "id": "i-beraadarem-as", "roman": "i beraadarem as", "dari": "ای برادرم اس", "en": "this is my brother", "notes": "Kabuli 'i' for formal 'in' (this).", "status": "draft" },
+            { "id": "u-khwaarem-as", "roman": "u khwaarem as", "dari": "او خواهرم اس", "en": "she is my sister", "status": "draft" },
+            { "id": "chand-beraadar-daari", "roman": "chand beraadar daari?", "dari": "چند برادر داری؟", "en": "how many brothers do you have?", "status": "draft" },
+            { "id": "du-khwaar-daarum", "roman": "du khwaar daarum", "dari": "دو خواهر دارم", "en": "I have two sisters", "notes": "Formal: du khwaahar daaram.", "status": "draft" },
+            { "id": "toy", "roman": "toy", "dari": "توی", "en": "wedding", "status": "draft" },
+            { "id": "mehmaan", "roman": "mehmaan", "dari": "مهمان", "en": "guest", "status": "draft" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "u3",
+      "title": "Me & you",
+      "titleDari": "مه و تو",
+      "color": "purple",
+      "lessons": [
+        {
+          "id": "u3-l1",
+          "title": "Pronouns",
+          "items": [
+            { "id": "ma", "roman": "ma", "dari": "مه", "en": "I", "notes": "Kabuli 'ma'; formal 'man' (من).", "status": "draft" },
+            { "id": "tu", "roman": "tu", "dari": "تو", "en": "you (informal)", "status": "draft" },
+            { "id": "shuma", "roman": "shuma", "dari": "شما", "en": "you (polite / plural)", "status": "draft" },
+            { "id": "u", "roman": "u", "dari": "او", "en": "he / she", "status": "draft" },
+            { "id": "maa", "roman": "maa", "dari": "ما", "en": "we", "status": "draft" },
+            { "id": "unaa", "roman": "unaa", "dari": "اونا", "en": "they", "notes": "Formal: aanhaa (آنها).", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u3-l2",
+          "title": "Where are you from?",
+          "items": [
+            { "id": "az-kujaa-asti", "roman": "az kujaa asti?", "dari": "از کجا استی؟", "en": "where are you from?", "status": "draft" },
+            { "id": "az-kabul-astum", "roman": "ma az Kabul astum", "dari": "مه از کابل استم", "en": "I am from Kabul", "status": "draft" },
+            { "id": "afghan-astum", "roman": "ma Afghan astum", "dari": "مه افغان استم", "en": "I am Afghan", "status": "draft" },
+            { "id": "u-khub-as", "roman": "u khub as", "dari": "او خوب اس", "en": "he / she is well", "status": "draft" },
+            { "id": "maa-khub-astem", "roman": "maa khub astem", "dari": "ما خوب استیم", "en": "we are well", "notes": "Formal: maa khub hastim.", "status": "draft" },
+            { "id": "watan", "roman": "watan", "dari": "وطن", "en": "homeland", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u3-l3",
+          "title": "Learning Dari",
+          "items": [
+            { "id": "dari-yaad-megirum", "roman": "ma dari yaad megirum", "dari": "مه دری یاد میگیرم", "en": "I am learning Dari", "status": "draft" },
+            { "id": "kami-kami", "roman": "kami kami dari gap mezanum", "dari": "کمی کمی دری گپ میزنم", "en": "I speak a little Dari", "notes": "'gap zadan' = to talk (colloquial).", "status": "draft" },
+            { "id": "mefaamum", "roman": "mefaamum", "dari": "میفامم", "en": "I understand", "notes": "Kabuli drops the h: formal mefahmam.", "status": "draft" },
+            { "id": "namefaamum", "roman": "namefaamum", "dari": "نمیفامم", "en": "I don't understand", "status": "draft" },
+            { "id": "yak-dafa-degaa", "roman": "yak dafa degaa bogo", "dari": "یک دفه دیگه بگو", "en": "say it once more", "status": "draft" },
+            { "id": "aasta-gap-bezan", "roman": "aasta gap bezan", "dari": "آهسته گپ بزن", "en": "speak slowly", "status": "draft" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "u4",
+      "title": "Food & tea",
+      "titleDari": "نان و چای",
+      "color": "orange",
+      "lessons": [
+        {
+          "id": "u4-l1",
+          "title": "Tea time",
+          "items": [
+            { "id": "chai", "roman": "chai", "dari": "چای", "en": "tea", "status": "draft" },
+            { "id": "chai-sabz", "roman": "chai-e sabz", "dari": "چای سبز", "en": "green tea", "status": "draft" },
+            { "id": "chai-siya", "roman": "chai-e siyaa", "dari": "چای سیاه", "en": "black tea", "status": "draft" },
+            { "id": "aw", "roman": "aw", "dari": "آب", "en": "water", "notes": "Kabuli 'aw'; formal 'aab'.", "status": "draft" },
+            { "id": "chai-mekhori", "roman": "chai mekhori?", "dari": "چای میخوری؟", "en": "will you have tea?", "notes": "Dari 'eats' tea: khordan is used for drinking too.", "status": "draft" },
+            { "id": "bale-mehrabani", "roman": "bale, mehrabani", "dari": "بلی، مهربانی", "en": "yes, please", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u4-l2",
+          "title": "Afghan food",
+          "items": [
+            { "id": "naan", "roman": "naan", "dari": "نان", "en": "bread / food", "notes": "'naan' also means a meal in general.", "status": "draft" },
+            { "id": "palaw", "roman": "palaw", "dari": "پلو", "en": "rice pilaf", "notes": "Qabuli palaw is the national dish.", "status": "draft" },
+            { "id": "mantu", "roman": "mantu", "dari": "منتو", "en": "steamed dumplings", "status": "draft" },
+            { "id": "bolani", "roman": "bolani", "dari": "بولانی", "en": "stuffed flatbread", "status": "draft" },
+            { "id": "kabaab", "roman": "kabaab", "dari": "کباب", "en": "kebab", "status": "draft" },
+            { "id": "mewa", "roman": "mewa", "dari": "میوه", "en": "fruit", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u4-l3",
+          "title": "Hungry & full",
+          "items": [
+            { "id": "gushna-astum", "roman": "ma gushna astum", "dari": "مه گشنه استم", "en": "I am hungry", "status": "draft" },
+            { "id": "teshna-astum", "roman": "ma teshna astum", "dari": "مه تشنه استم", "en": "I am thirsty", "status": "draft" },
+            { "id": "ser-astum", "roman": "ne, tashakur, ser astum", "dari": "نی تشکر، سیر استم", "en": "no thanks, I'm full", "status": "draft" },
+            { "id": "naan-khordi", "roman": "naan khordi?", "dari": "نان خوردی؟", "en": "have you eaten?", "notes": "A common caring greeting.", "status": "draft" },
+            { "id": "mazadaar-as", "roman": "mazadaar as", "dari": "مزه دار اس", "en": "it's tasty", "status": "draft" },
+            { "id": "befarmaayen", "roman": "befarmaayen", "dari": "بفرمایین", "en": "please, go ahead / help yourself", "status": "draft" },
+            { "id": "dastet-dard-nakona", "roman": "dastet dard nakona", "dari": "دستت درد نکنه", "en": "thank you (for the food/effort)", "notes": "Literally 'may your hand not hurt'.", "status": "draft" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "u5",
+      "title": "Everyday verbs",
+      "titleDari": "کارهای روزمره",
+      "color": "red",
+      "lessons": [
+        {
+          "id": "u5-l1",
+          "title": "Going & coming",
+          "items": [
+            { "id": "merum", "roman": "merum", "dari": "میرم", "en": "I go", "notes": "Formal: miravam.", "status": "draft" },
+            { "id": "meri", "roman": "meri", "dari": "میری", "en": "you go", "status": "draft" },
+            { "id": "mera", "roman": "mera", "dari": "میره", "en": "he / she goes", "notes": "Formal: miravad.", "status": "draft" },
+            { "id": "meyum", "roman": "meyum", "dari": "میایم", "en": "I come", "status": "draft" },
+            { "id": "kujaa-meri", "roman": "kujaa meri?", "dari": "کجا میری؟", "en": "where are you going?", "status": "draft" },
+            { "id": "khaana-merum", "roman": "khaana merum", "dari": "خانه میرم", "en": "I'm going home", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u5-l2",
+          "title": "Eating & doing",
+          "items": [
+            { "id": "mekhorum", "roman": "mekhorum", "dari": "میخورم", "en": "I eat / drink", "status": "draft" },
+            { "id": "mekunum", "roman": "mekunum", "dari": "میکنم", "en": "I do", "status": "draft" },
+            { "id": "kaar-mekunum", "roman": "kaar mekunum", "dari": "کار میکنم", "en": "I work", "status": "draft" },
+            { "id": "mekhaayum", "roman": "mekhaayum", "dari": "میخواهم", "en": "I want", "notes": "Kabuli pronunciation; written mikhaaham.", "status": "draft" },
+            { "id": "chi-mekhaayi", "roman": "chi mekhaayi?", "dari": "چی میخواهی؟", "en": "what do you want?", "status": "draft" },
+            { "id": "mebinum", "roman": "mebinum", "dari": "میبینم", "en": "I see", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u5-l3",
+          "title": "Saying no",
+          "items": [
+            { "id": "namerum", "roman": "namerum", "dari": "نمیرم", "en": "I'm not going", "status": "draft" },
+            { "id": "nameyum", "roman": "nameyum", "dari": "نمیایم", "en": "I'm not coming", "status": "draft" },
+            { "id": "namekhaayum", "roman": "namekhaayum", "dari": "نمیخواهم", "en": "I don't want", "status": "draft" },
+            { "id": "emroz", "roman": "emroz", "dari": "امروز", "en": "today", "status": "draft" },
+            { "id": "fardaa", "roman": "fardaa", "dari": "فردا", "en": "tomorrow", "status": "draft" },
+            { "id": "fardaa-meyum", "roman": "fardaa meyum", "dari": "فردا میایم", "en": "I'll come tomorrow", "status": "draft" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "u6",
+      "title": "Numbers & the bazaar",
+      "titleDari": "شمار و بازار",
+      "color": "gold",
+      "lessons": [
+        {
+          "id": "u6-l1",
+          "title": "One to five",
+          "items": [
+            { "id": "yak", "roman": "yak", "dari": "یک", "en": "one", "status": "draft" },
+            { "id": "du", "roman": "du", "dari": "دو", "en": "two", "status": "draft" },
+            { "id": "se", "roman": "se", "dari": "سه", "en": "three", "status": "draft" },
+            { "id": "chaar", "roman": "chaar", "dari": "چهار", "en": "four", "status": "draft" },
+            { "id": "panj", "roman": "panj", "dari": "پنج", "en": "five", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u6-l2",
+          "title": "Six to a hundred",
+          "items": [
+            { "id": "shash", "roman": "shash", "dari": "شش", "en": "six", "status": "draft" },
+            { "id": "haft", "roman": "haft", "dari": "هفت", "en": "seven", "status": "draft" },
+            { "id": "hasht", "roman": "hasht", "dari": "هشت", "en": "eight", "status": "draft" },
+            { "id": "noh", "roman": "noh", "dari": "نه", "en": "nine", "status": "draft" },
+            { "id": "dah", "roman": "dah", "dari": "ده", "en": "ten", "status": "draft" },
+            { "id": "bist", "roman": "bist", "dari": "بیست", "en": "twenty", "status": "draft" },
+            { "id": "sad", "roman": "sad", "dari": "صد", "en": "one hundred", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u6-l3",
+          "title": "At the bazaar",
+          "items": [
+            { "id": "chand-as", "roman": "chand as?", "dari": "چند اس؟", "en": "how much is it?", "status": "draft" },
+            { "id": "i-chand-afghani-as", "roman": "i chand afghani as?", "dari": "ای چند افغانی اس؟", "en": "how many afghanis is this?", "status": "draft" },
+            { "id": "qimat-as", "roman": "qimat as", "dari": "قیمت اس", "en": "it's expensive", "notes": "'qimat' = expensive (also 'price').", "status": "draft" },
+            { "id": "arzaan", "roman": "arzaan", "dari": "ارزان", "en": "cheap", "status": "draft" },
+            { "id": "kam-ko", "roman": "kami kam ko", "dari": "کمی کم کو", "en": "lower it a little", "notes": "Kabuli 'ko' for formal 'kon' (do).", "status": "draft" },
+            { "id": "pul", "roman": "pul", "dari": "پول", "en": "money", "status": "draft" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "u7",
+      "title": "Getting around Kabul",
+      "titleDari": "در شهر کابل",
+      "color": "blue",
+      "lessons": [
+        {
+          "id": "u7-l1",
+          "title": "Here & there",
+          "items": [
+            { "id": "kujaa", "roman": "kujaa?", "dari": "کجا؟", "en": "where?", "status": "draft" },
+            { "id": "inja", "roman": "inja", "dari": "اینجه", "en": "here", "notes": "Formal: injaa (اینجا).", "status": "draft" },
+            { "id": "unja", "roman": "unja", "dari": "اونجه", "en": "there", "notes": "Formal: aanjaa (آنجا).", "status": "draft" },
+            { "id": "dur-as", "roman": "dur as?", "dari": "دور اس؟", "en": "is it far?", "status": "draft" },
+            { "id": "nazdik-as", "roman": "nazdik as", "dari": "نزدیک اس", "en": "it's close", "status": "draft" },
+            { "id": "saat-chand-as", "roman": "saat chand as?", "dari": "ساعت چند اس؟", "en": "what time is it?", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u7-l2",
+          "title": "In a taxi",
+          "items": [
+            { "id": "raast", "roman": "raast", "dari": "راست", "en": "right", "status": "draft" },
+            { "id": "chap", "roman": "chap", "dari": "چپ", "en": "left", "status": "draft" },
+            { "id": "mustaqim-boro", "roman": "mustaqim boro", "dari": "مستقیم برو", "en": "go straight", "status": "draft" },
+            { "id": "biyaa", "roman": "biyaa", "dari": "بیا", "en": "come!", "status": "draft" },
+            { "id": "inja-istaad-ko", "roman": "inja istaad ko", "dari": "اینجه ایستاد کو", "en": "stop here", "notes": "Needs native review — taxi phrasing varies.", "status": "draft" },
+            { "id": "zud-ko", "roman": "zud ko", "dari": "زود کو", "en": "hurry up", "status": "draft" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "u8",
+      "title": "Yesterday (past tense)",
+      "titleDari": "دیروز",
+      "color": "purple",
+      "lessons": [
+        {
+          "id": "u8-l1",
+          "title": "What did you do?",
+          "items": [
+            { "id": "diroz", "roman": "diroz", "dari": "دیروز", "en": "yesterday", "status": "draft" },
+            { "id": "raftum", "roman": "raftum", "dari": "رفتم", "en": "I went", "notes": "Formal: raftam.", "status": "draft" },
+            { "id": "aamadum", "roman": "aamadum", "dari": "آمدم", "en": "I came", "status": "draft" },
+            { "id": "khordum", "roman": "khordum", "dari": "خوردم", "en": "I ate", "status": "draft" },
+            { "id": "kadum", "roman": "kadum", "dari": "کدم", "en": "I did", "notes": "Kabuli drops the r: formal kardam.", "status": "draft" },
+            { "id": "chi-kadi", "roman": "chi kadi?", "dari": "چی کدی؟", "en": "what did you do?", "notes": "Formal: che kardi?", "status": "draft" }
+          ]
+        },
+        {
+          "id": "u8-l2",
+          "title": "Telling a story",
+          "items": [
+            { "id": "guftum", "roman": "guftum", "dari": "گفتم", "en": "I said", "status": "draft" },
+            { "id": "didum", "roman": "didum", "dari": "دیدم", "en": "I saw", "status": "draft" },
+            { "id": "diroz-bazaar-raftum", "roman": "diroz bazaar raftum", "dari": "دیروز بازار رفتم", "en": "yesterday I went to the bazaar", "status": "draft" },
+            { "id": "naan-khordum", "roman": "naan khordum", "dari": "نان خوردم", "en": "I ate (a meal)", "status": "draft" },
+            { "id": "dostemaa-didum", "roman": "dostema didum", "dari": "دوستمه دیدم", "en": "I saw my friend", "notes": "Kabuli object marker '-a' (formal: dostam-ra).", "status": "draft" },
+            { "id": "khaili-khosh-guzasht", "roman": "khaili khosh guzasht", "dari": "خیلی خوش گذشت", "en": "it was a lot of fun", "status": "draft" }
+          ]
+        }
+      ]
+    }
+  ]
+}
