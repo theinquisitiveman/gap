@@ -22,7 +22,12 @@ export async function playItem(item: LiveItem, ttsFallback: boolean): Promise<bo
     return true
   }
   if (item.audio) {
-    await playUrl(import.meta.env.BASE_URL + item.audio)
+    // Fetch the whole file (rather than letting <audio> make range requests) so the service worker can
+    // cache it for offline use.
+    const res = await fetch(import.meta.env.BASE_URL + item.audio)
+    if (!res.ok) throw new Error(`audio ${res.status}`)
+    const url = URL.createObjectURL(await res.blob())
+    await playUrl(url).finally(() => setTimeout(() => URL.revokeObjectURL(url), 30_000))
     return true
   }
   if (ttsFallback && 'speechSynthesis' in window) {

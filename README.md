@@ -70,6 +70,17 @@ hyphens and punctuation.
    That updates `course.json`, writes audio to `public/audio/`, marks the items `reviewed` and credits the reviewer.
    Reviewers can also **import** each other's files in the app.
 
+**Publishing straight from an account** (the easier route for the course owner): record and fix phrases in the app
+while signed in, then run
+```bash
+npm run publish-account -- you@example.com --dry-run   # preview
+npm run publish-account -- you@example.com             # write content/ + public/audio/
+npm run check-content && git add content public/audio && git commit -m "Publish recordings" && git push
+```
+This reads that account's fixes and recordings with the project's secret key, which it gets from the logged-in
+Supabase CLI and never saves. It updates the course for everyone and leaves the account unchanged. Recordings are
+cached on each phone the first time they play, not downloaded up front.
+
 ## Layout
 ```
 content/course.json        units → lessons → phrases

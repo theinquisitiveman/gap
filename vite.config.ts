@@ -53,8 +53,15 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,png,svg,m4a,webm,mp3}'],
+        // Recordings are not precached (hundreds of files); each is cached the first time it's played.
+        globPatterns: ['**/*.{js,css,html,png,svg}'],
         runtimeCaching: [
+          {
+            // Serve the cached copy instantly, refresh it in the background so re-recordings reach users.
+            urlPattern: ({ url }) => url.pathname.includes('/audio/'),
+            handler: 'StaleWhileRevalidate',
+            options: { cacheName: 'audio', expiration: { maxEntries: 1000 } },
+          },
           {
             urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/,
             handler: 'CacheFirst',
