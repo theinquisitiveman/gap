@@ -21,7 +21,7 @@ const TABS: { id: Tab; icon: string; label: string }[] = [
 ]
 
 export default function App() {
-  const { ready, course, progress, accountsEnabled, email } = useApp()
+  const { ready, course, progress, accountsEnabled, email, t: tr } = useApp()
   const [tab, setTab] = useState<Tab>('learn')
   const [active, setActive] = useState<Active | null>(null)
 
@@ -37,16 +37,16 @@ export default function App() {
       <header className="safe-top flex items-center justify-between border-b-2 border-swan px-4 pb-3 font-black">
         <span className="text-xl text-feather">DariLingo</span>
         <div className="flex gap-4">
-          <span className="text-fox" aria-label="day streak">🔥 {currentStreak(progress, now)}</span>
+          <span className="text-fox" aria-label={tr('day streak')}>🔥 {currentStreak(progress, now)}</span>
           <span className="text-bee-dark" aria-label="XP">⚡ {progress.xp}</span>
-          <span className="text-cardinal" aria-label="hearts">❤️ {heartsNow(progress, now).count}</span>
+          <span className="text-cardinal" aria-label={tr('hearts')}>❤️ {heartsNow(progress, now).count}</span>
         </div>
       </header>
 
       <main className="flex-1 overflow-y-auto pt-4">
         {tab === 'learn' && accountsEnabled && !email && Object.keys(progress.completed).length > 0 && (
           <button type="button" onClick={() => setTab('me')} className="mx-4 mb-6 block w-[calc(100%-2rem)] rounded-2xl border-2 border-sky bg-sky/10 px-4 py-3 text-left text-sm font-bold text-sky-dark">
-            💾 Create a free account to save your progress →
+            💾 {tr('Create a free account to save your progress →')}
           </button>
         )}
         {tab === 'learn' && (
@@ -61,7 +61,7 @@ export default function App() {
         {tab === 'me' && <Profile />}
       </main>
 
-      <nav className="safe-bottom grid grid-cols-4 border-t-2 border-swan pt-2" aria-label="Main">
+      <nav className="safe-bottom grid grid-cols-4 border-t-2 border-swan pt-2" aria-label={tr('Main')}>
         {TABS.map((t) => (
           <button
             key={t.id}
@@ -73,7 +73,7 @@ export default function App() {
             }`}
           >
             <span className="text-2xl">{t.icon}</span>
-            {t.label}
+            {tr(t.label)}
           </button>
         ))}
       </nav>

@@ -1,14 +1,15 @@
 import type { Session } from '@supabase/supabase-js'
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import baseCourse from '../content/course.json'
-import { allItems, applyCorrections } from './lib/content'
+import { allItems, applyCorrections, meaningOf, notesOf, titleOf, type Lang } from './lib/content'
 import { blobToDataUrl, dataUrlToBlob, mergeCorrections, parseCorrectionsFile, type CorrectionsFile } from './lib/corrections'
 import * as db from './lib/db'
+import { translate, type T } from './lib/i18n'
 import { emptyProgress, type Progress } from './lib/progress'
 import { stableJson } from './lib/stableJson'
 import { supabase } from './lib/supabase'
 import * as sync from './lib/sync'
-import type { Correction, Corrections, Course, Item, LiveItem } from './lib/types'
+import { EDITABLE_FIELDS, type Correction, type Corrections, type Course, type Item, type LiveItem } from './lib/types'
 
 const BASE = baseCourse as Course
 const KNOWN_IDS = new Set(allItems(BASE).map((i) => i.id))
@@ -26,6 +27,12 @@ interface AppState {
   setProgress: (fn: (p: Progress) => Progress) => void
   settings: db.Settings
   updateSettings: (s: Partial<db.Settings>) => void
+  /** Explanation language and helpers that read content and UI text in it. */
+  lang: Lang
+  t: T
+  meaning: (item: Item) => string
+  notes: (item: Item) => string | undefined
+  title: (x: { title: string; titleDe?: string }) => string
   /** Active corrections (resets excluded). */
   corrections: Corrections
   recordings: Set<string>
@@ -58,7 +65,7 @@ export function useApp() {
 function diffFields(itemId: string, fields: Fields): Fields {
   const orig = ORIGINALS.get(itemId)!
   const out: Fields = {}
-  for (const k of ['roman', 'dari', 'en', 'notes'] as const) {
+  for (const k of EDITABLE_FIELDS) {
     const v = fields[k]?.trim()
     if (v !== undefined && v !== (orig[k] ?? '')) out[k] = v
   }
@@ -97,6 +104,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => { if (ready) db.saveProgress(progress).catch(console.error) }, [ready, progress])
   useEffect(() => { if (ready) db.saveSettings(settings).catch(console.error) }, [ready, settings])
+  const lang = settings.lang
+  useEffect(() => { document.documentElement.lang = lang }, [lang])
   useEffect(() => { if (ready) db.saveCorrections(corrections).catch(console.error) }, [ready, corrections])
 
   // ---- Account sync: pull, merge, apply locally, push. Safe to call any time; calls are serialized.
@@ -271,6 +280,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     original: (id) => ORIGINALS.get(id),
     progress, setProgress,
     settings, updateSettings: (s) => setSettings((prev) => ({ ...prev, ...s })),
+    lang,
+    t: (text, vars) => translate(lang, text, vars),
+    meaning: (it) => meaningOf(it, lang),
+    notes: (it) => notesOf(it, lang),
+    title: (x) => titleOf(x, lang),
     corrections: active, recordings,
     canListen: (it) => recordings.has(it.id) || !!it.audio || settings.ttsFallback,
     saveCorrection, acceptAnswer, resetCorrection, exportCorrections, importCorrections,

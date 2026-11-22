@@ -1,4 +1,4 @@
-import type { Correction, Corrections } from './types'
+import { EDITABLE_FIELDS, type Correction, type Corrections } from './types'
 
 /** File format shared between the app (export/import) and scripts/apply-corrections.mjs. */
 export interface CorrectionsFile {
@@ -32,7 +32,7 @@ export function parseCorrectionsFile(text: string): CorrectionsFile {
       throw new Error('Corrections file is malformed')
     }
     for (const [k, v] of Object.entries(c.fields)) {
-      if (!['roman', 'dari', 'en', 'notes'].includes(k) || typeof v !== 'string') throw new Error(`Bad field ${k}`)
+      if (!(EDITABLE_FIELDS as readonly string[]).includes(k) || typeof v !== 'string') throw new Error(`Bad field ${k}`)
     }
     if (c.audioDataUrl !== undefined && !/^data:audio\/[\w.+-]+(;[\w=.+-]+)*;base64,/.test(c.audioDataUrl)) {
       throw new Error('Bad audio in corrections file')

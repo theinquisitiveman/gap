@@ -8,6 +8,8 @@ export type Exercise =
   | { kind: 'speak'; itemId: string }
 
 type Rng = () => number
+/** The meaning shown to the learner; distractors must not share it with the answer. */
+type Meaning = (item: LiveItem) => string
 
 export function shuffle<T>(arr: T[], rng: Rng = Math.random): T[] {
   const a = [...arr]
@@ -19,13 +21,13 @@ export function shuffle<T>(arr: T[], rng: Rng = Math.random): T[] {
 }
 
 /** Pick distractors that can't be confused with the answer (e.g. two items both meaning "thank you"). */
-export function pickOptions(target: LiveItem, pool: LiveItem[], n: number, rng: Rng = Math.random): string[] {
-  const seenEn = new Set([normalizeRoman(target.en)])
+export function pickOptions(target: LiveItem, pool: LiveItem[], n: number, rng: Rng = Math.random, meaning: Meaning = (i) => i.en): string[] {
+  const seenEn = new Set([normalizeRoman(meaning(target))])
   const seenRoman = new Set([normalizeRoman(target.roman)])
   const distractors: string[] = []
   for (const it of shuffle(pool, rng)) {
     if (distractors.length >= n - 1) break
-    const en = normalizeRoman(it.en)
+    const en = normalizeRoman(meaning(it))
     const ro = normalizeRoman(it.roman)
     if (it.id === target.id || seenEn.has(en) || seenRoman.has(ro)) continue
     seenEn.add(en)
@@ -42,7 +44,7 @@ export function pickOptions(target: LiveItem, pool: LiveItem[], n: number, rng: 
 export function buildLesson(
   items: LiveItem[],
   pool: LiveItem[],
-  opts: { canListen: (item: LiveItem) => boolean; introduce?: boolean; rng?: Rng },
+  opts: { canListen: (item: LiveItem) => boolean; introduce?: boolean; rng?: Rng; meaning?: Meaning },
 ): Exercise[] {
   const rng = opts.rng ?? Math.random
   const choicePool = pool.length >= 4 ? pool : items
@@ -50,7 +52,7 @@ export function buildLesson(
     kind: 'choice',
     mode: opts.canListen(it) && rng() < 0.5 ? 'listen' : 'meaning',
     itemId: it.id,
-    options: pickOptions(it, choicePool, 4, rng),
+    options: pickOptions(it, choicePool, 4, rng, opts.meaning),
     isNew: opts.introduce,
   }))
 
@@ -63,7 +65,7 @@ export function buildLesson(
       )
       return { kind: 'wordbank', itemId: it.id, tiles: shuffle([...words, ...new Set(extra)].slice(0, words.length + 2), rng) }
     }
-    return { kind: 'choice', mode: 'dari', itemId: it.id, options: pickOptions(it, choicePool, 4, rng) }
+    return { kind: 'choice', mode: 'dari', itemId: it.id, options: pickOptions(it, choicePool, 4, rng, opts.meaning) }
   })
 
   const out: Exercise[] = [...first, ...shuffle(second, rng)]

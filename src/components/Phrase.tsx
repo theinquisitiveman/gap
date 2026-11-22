@@ -5,15 +5,15 @@ import { useApp } from '../state'
 
 /** Plays the phrase. It never edits: corrections and recordings go through the Fix/Record button. */
 export function SpeakerButton({ item, big }: { item: LiveItem; big?: boolean }) {
-  const { settings, canListen } = useApp()
+  const { settings, canListen, t } = useApp()
   const [busy, setBusy] = useState(false)
   const available = canListen(item)
   return (
     <button
       type="button"
       disabled={!available}
-      aria-label={available ? `Play ${item.roman}` : `No audio for ${item.roman} yet`}
-      title={available ? 'Listen' : 'No audio yet'}
+      aria-label={t(available ? 'Play {roman}' : 'No audio for {roman} yet', { roman: item.roman })}
+      title={t(available ? 'Listen' : 'No audio yet')}
       onClick={async () => {
         setBusy(true)
         try { await playItem(item, settings.ttsFallback) } catch (e) { console.error(e) } finally { setBusy(false) }

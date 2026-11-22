@@ -7,7 +7,7 @@ import type { ExerciseProps } from './types'
 
 /** Record yourself and compare with the native recording. No automatic scoring: no reliable Dari ASR on iOS. */
 export function Speak({ ex, setValue, locked }: ExerciseProps<Extract<Exercise, { kind: 'speak' }>>) {
-  const { item } = useApp()
+  const { item, t, meaning } = useApp()
   const target = item(ex.itemId)
   const [rec, setRec] = useState<Recorder | null>(null)
   const [mine, setMine] = useState<string | null>(null)
@@ -27,29 +27,29 @@ export function Speak({ ex, setValue, locked }: ExerciseProps<Extract<Exercise, 
       setValue('done')
       return
     }
-    try { setRec(await startRecording()) } catch { setError('Microphone unavailable — you can skip this one.') }
+    try { setRec(await startRecording()) } catch { setError(t('Microphone unavailable — you can skip this one.')) }
   }
 
   return (
     <div className="flex flex-1 flex-col">
-      <h1 className="mb-6 text-2xl font-black">Say it out loud</h1>
+      <h1 className="mb-6 text-2xl font-black">{t('Say it out loud')}</h1>
       <div className="mb-8 flex items-center gap-4">
         <SpeakerButton item={target} />
         <div className="rounded-2xl border-2 border-swan px-4 py-3 text-2xl font-extrabold">
           <DariText item={target} />
-          <div className="text-base font-bold text-wolf">{target.en}</div>
+          <div className="text-base font-bold text-wolf">{meaning(target)}</div>
         </div>
       </div>
       <button type="button" disabled={locked} onClick={toggle} className={`btn ${rec ? 'btn-red' : 'btn-sky'} py-6 text-lg`}>
-        {rec ? '■ Tap to stop' : mine ? '🎙️ Try again' : '🎙️ Tap to speak'}
+        {t(rec ? '■ Tap to stop' : mine ? '🎙️ Try again' : '🎙️ Tap to speak')}
       </button>
       {mine && (
-        <button type="button" onClick={() => playUrl(mine)} className="btn btn-ghost mt-3 normal-case">▶︎ Hear yourself</button>
+        <button type="button" onClick={() => playUrl(mine)} className="btn btn-ghost mt-3 normal-case">{t('▶︎ Hear yourself')}</button>
       )}
       {error && <p role="alert" className="mt-3 font-bold text-cardinal">{error}</p>}
       {!locked && !mine && (
         <button type="button" className="mt-auto pt-6 font-extrabold uppercase text-hare" onClick={() => setValue('skip')}>
-          Can't speak now
+          {t("Can't speak now")}
         </button>
       )}
     </div>

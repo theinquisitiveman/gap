@@ -4,7 +4,7 @@ import { useApp } from '../state'
 import type { ExerciseProps } from './types'
 
 export function Match({ ex, setValue }: ExerciseProps<Extract<Exercise, { kind: 'match' }>>) {
-  const { item, settings } = useApp()
+  const { item, settings, t, meaning } = useApp()
   const left = useMemo(() => shuffle(ex.itemIds), [ex])
   const right = useMemo(() => shuffle(ex.itemIds), [ex])
   const [sel, setSel] = useState<{ l?: string; r?: string }>({})
@@ -30,7 +30,7 @@ export function Match({ ex, setValue }: ExerciseProps<Extract<Exercise, { kind: 
 
   return (
     <div className="flex flex-1 flex-col">
-      <h1 className="mb-6 text-2xl font-black">Tap the matching pairs</h1>
+      <h1 className="mb-6 text-2xl font-black">{t('Tap the matching pairs')}</h1>
       <div key={miss} className={`grid grid-cols-2 gap-3 ${miss ? 'anim-shake' : ''}`}>
         <div className="grid gap-3">
           {left.map((id) => (
@@ -43,7 +43,7 @@ export function Match({ ex, setValue }: ExerciseProps<Extract<Exercise, { kind: 
         <div className="grid gap-3">
           {right.map((id) => (
             <button key={id} type="button" disabled={done.has(id)} className={cls('r', id)} onClick={() => pick('r', id)}>
-              {item(id).en}
+              {meaning(item(id))}
             </button>
           ))}
         </div>

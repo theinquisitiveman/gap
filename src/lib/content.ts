@@ -44,3 +44,11 @@ export function applyCorrections(course: Course, corrections: Corrections): Cour
 export function allItems(course: Course): LiveItem[] {
   return course.units.flatMap((u) => u.lessons.flatMap((l) => l.items))
 }
+
+/** The language explanations are shown in. Dari itself never changes. */
+export type Lang = 'en' | 'de'
+
+/** What a phrase means, in the learner's language; English until a German draft exists. */
+export const meaningOf = (item: Item, lang: Lang) => (lang === 'de' && item.de) || item.en
+export const notesOf = (item: Item, lang: Lang) => (lang === 'de' && item.notesDe) || item.notes
+export const titleOf = (x: { title: string; titleDe?: string }, lang: Lang) => (lang === 'de' && x.titleDe) || x.title

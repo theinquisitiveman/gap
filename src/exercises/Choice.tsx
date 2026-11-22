@@ -6,7 +6,7 @@ import { useApp } from '../state'
 import type { ExerciseProps } from './types'
 
 export function Choice({ ex, value, setValue, locked }: ExerciseProps<Extract<Exercise, { kind: 'choice' }>>) {
-  const { item, settings } = useApp()
+  const { item, settings, t, meaning } = useApp()
   const target = item(ex.itemId)
 
   useEffect(() => {
@@ -14,11 +14,11 @@ export function Choice({ ex, value, setValue, locked }: ExerciseProps<Extract<Ex
   }, [ex, target, settings.ttsFallback])
 
   const title =
-    ex.mode === 'listen' ? 'What did you hear?' : ex.mode === 'meaning' ? 'What does this mean?' : `How do you say “${target.en}”?`
+    ex.mode === 'listen' ? t('What did you hear?') : ex.mode === 'meaning' ? t('What does this mean?') : t('How do you say “{meaning}”?', { meaning: meaning(target) })
 
   return (
     <div className="flex flex-1 flex-col">
-      {ex.isNew && <div className="mb-1 text-sm font-black uppercase text-beetle">New phrase</div>}
+      {ex.isNew && <div className="mb-1 text-sm font-black uppercase text-beetle">{t('New phrase')}</div>}
       <h1 className="mb-6 text-2xl font-black">{title}</h1>
       {ex.mode !== 'dari' && (
         <div className="mb-8 flex items-center gap-4">
@@ -42,7 +42,7 @@ export function Choice({ ex, value, setValue, locked }: ExerciseProps<Extract<Ex
               onClick={() => setValue(id)}
               className={`tile text-lg ${selected ? 'tile-selected' : ''}`}
             >
-              {ex.mode === 'dari' ? <DariText item={opt} /> : opt.en}
+              {ex.mode === 'dari' ? <DariText item={opt} /> : meaning(opt)}
             </button>
           )
         })}

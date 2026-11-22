@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import course from '../../../content/course.json'
-import { allItems, applyCorrections, validateCourse } from '../content'
+import { allItems, applyCorrections, meaningOf, notesOf, validateCourse } from '../content'
+import { translate } from '../i18n'
 import { mergeCorrections, parseCorrectionsFile } from '../corrections'
 import { buildLesson, isAcceptedSentence, pickOptions } from '../exercises'
 import { normalizeRoman } from '../normalize'
@@ -128,5 +129,46 @@ describe('progress', () => {
     p = recordAnswer(p, 'b', false, t - 3 * 86_400_000) // weak, overdue
     p = recordAnswer(p, 'c', true, t)
     expect(reviewQueue(p, ['a', 'b', 'c', 'unseen'], t)).toEqual(['b', 'c', 'a'])
+  })
+})
+
+describe('German explanations', () => {
+  it('every bundled phrase, lesson and unit has a German draft', () => {
+    expect(items.filter((i) => !i.de?.trim()).map((i) => i.id)).toEqual([])
+    expect(items.filter((i) => i.notes && !i.notesDe).map((i) => i.id)).toEqual([])
+    expect(C.units.flatMap((u) => [u, ...u.lessons]).filter((x) => !x.titleDe).map((x) => x.id)).toEqual([])
+  })
+
+  it('falls back to English where no German exists', () => {
+    const it0: LiveItem = { id: 'x', roman: 'r', dari: 'd', en: 'hello', notes: 'n', status: 'draft' }
+    expect(meaningOf(it0, 'de')).toBe('hello')
+    expect(notesOf(it0, 'de')).toBe('n')
+    expect(meaningOf({ ...it0, de: 'hallo' }, 'de')).toBe('hallo')
+    expect(meaningOf({ ...it0, de: 'hallo' }, 'en')).toBe('hello')
+  })
+
+  it('distractors never share the German meaning with the answer', () => {
+    const a: LiveItem = { id: 'a', roman: 'tashakur', dari: 'x', en: 'thanks', de: 'danke', status: 'draft' }
+    const b: LiveItem = { id: 'b', roman: 'mamnun', dari: 'x', en: 'thank you', de: 'Danke', status: 'draft' }
+    for (let s = 0; s < 20; s++) {
+      const opts = pickOptions(a, [a, b, ...items.slice(0, 10)], 4, seq([s / 20, 0.3, 0.7]), (i) => meaningOf(i, 'de'))
+      expect(opts).not.toContain('b')
+    }
+  })
+
+  it('a German fix keeps an earlier English fix and survives export/import', () => {
+    const id = items[0].id
+    const file = JSON.stringify({ format: 'gap-corrections', version: 1, exportedAt: '', corrections: [
+      { itemId: id, fields: { en: 'hi there', de: 'servus', notesDe: 'locker' }, updatedAt: 5 },
+    ] })
+    const merged = mergeCorrections({}, parseCorrectionsFile(file).corrections, new Set([id]))
+    const live = allItems(applyCorrections(C, merged))[0]
+    expect([live.en, live.de, live.notesDe]).toEqual(['hi there', 'servus', 'locker'])
+  })
+
+  it('UI text translates with placeholders and falls back to English', () => {
+    expect(translate('de', 'Unit {n}', { n: 3 })).toBe('Einheit 3')
+    expect(translate('en', 'Unit {n}', { n: 3 })).toBe('Unit 3')
+    expect(translate('de', 'Not in the dictionary')).toBe('Not in the dictionary')
   })
 })

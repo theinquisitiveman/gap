@@ -14,4 +14,4 @@ if (problems.length) {
   process.exit(1)
 }
 const items = course.units.flatMap((u) => u.lessons.flatMap((l) => l.items))
-console.log(`Content OK: ${course.units.length} units, ${items.length} phrases, ${items.filter((i) => i.status === 'reviewed').length} reviewed, ${items.filter((i) => i.audio).length} with audio.`)
+console.log(`Content OK: ${course.units.length} units, ${items.length} phrases, ${items.filter((i) => i.status === 'reviewed').length} reviewed, ${items.filter((i) => i.audio).length} with audio, ${items.filter((i) => !i.de).length} missing German (shown in English).`)

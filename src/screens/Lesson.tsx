@@ -16,9 +16,9 @@ interface Props { items: LiveItem[]; pool: LiveItem[]; lessonId: string | null; 
 type Status = 'idle' | 'correct' | 'wrong'
 
 export function Lesson({ items, pool, lessonId, practice = false, onExit }: Props) {
-  const { item, progress, setProgress, canListen, acceptAnswer } = useApp()
+  const { item, progress, setProgress, canListen, acceptAnswer, t, meaning, notes } = useApp()
   const [queue, setQueue] = useState<Exercise[]>(() =>
-    buildLesson(items, pool, { canListen, introduce: !practice && !progress.completed[lessonId ?? ''] }),
+    buildLesson(items, pool, { canListen, meaning, introduce: !practice && !progress.completed[lessonId ?? ''] }),
   )
   const [index, setIndex] = useState(0)
   const [value, setValue] = useState('')
@@ -35,9 +35,9 @@ export function Lesson({ items, pool, lessonId, practice = false, onExit }: Prop
     return (
       <Screen>
         <Mascot mood="sad" size={110} />
-        <h1 className="mt-6 text-2xl font-black">You're out of hearts</h1>
-        <p className="mt-2 text-wolf">Hearts refill over time — one every 30 minutes. Practice doesn't cost hearts.</p>
-        <button type="button" className="btn btn-green mt-8" onClick={onExit}>Back</button>
+        <h1 className="mt-6 text-2xl font-black">{t("You're out of hearts")}</h1>
+        <p className="mt-2 text-wolf">{t("Hearts refill over time — one every 30 minutes. Practice doesn't cost hearts.")}</p>
+        <button type="button" className="btn btn-green mt-8" onClick={onExit}>{t('Back')}</button>
       </Screen>
     )
   }
@@ -46,13 +46,13 @@ export function Lesson({ items, pool, lessonId, practice = false, onExit }: Prop
     return (
       <Screen>
         <Mascot mood="cheer" size={120} />
-        <h1 className="mt-6 text-3xl font-black text-bee-dark">{practice ? 'Practice complete!' : 'Lesson complete!'}</h1>
+        <h1 className="mt-6 text-3xl font-black text-bee-dark">{t(practice ? 'Practice complete!' : 'Lesson complete!')}</h1>
         <div className="mt-6 flex gap-3">
           <Stat label="XP" value={`+${finished.xp}`} color="text-bee-dark" />
-          <Stat label="Mistakes" value={String(mistakes)} color="text-sky" />
+          <Stat label={t('Mistakes')} value={String(mistakes)} color="text-sky" />
         </div>
-        <p className="mt-6 font-bold text-wolf">Ofareen! <span className="dari">آفرین</span> — well done!</p>
-        <button type="button" className="btn btn-green mt-8" onClick={onExit}>Continue</button>
+        <p className="mt-6 font-bold text-wolf">Ofareen! <span className="dari">آفرین</span> — {t('well done!')}</p>
+        <button type="button" className="btn btn-green mt-8" onClick={onExit}>{t('Continue')}</button>
       </Screen>
     )
   }
@@ -97,7 +97,7 @@ export function Lesson({ items, pool, lessonId, practice = false, onExit }: Prop
   return (
     <div className="safe-top flex h-full flex-col">
       <header className="flex items-center gap-3 px-4 pb-4">
-        <button type="button" aria-label="Quit lesson" className="text-3xl text-hare" onClick={() => confirm('Quit this lesson? Progress in it will be lost.') && onExit()}>✕</button>
+        <button type="button" aria-label={t('Quit lesson')} className="text-3xl text-hare" onClick={() => confirm(t('Quit this lesson? Progress in it will be lost.')) && onExit()}>✕</button>
         <div className="h-4 flex-1 overflow-hidden rounded-full bg-swan" role="progressbar" aria-valuenow={index} aria-valuemax={queue.length}>
           <div className="h-full rounded-full bg-feather transition-all" style={{ width: `${(index / queue.length) * 100}%` }} />
         </div>
@@ -115,31 +115,31 @@ export function Lesson({ items, pool, lessonId, practice = false, onExit }: Prop
         {status !== 'idle' && (
           <div className="mb-4" role="status">
             <div className={`text-2xl font-black ${showCorrect ? 'text-feather-dark' : 'text-cardinal-dark'}`}>
-              {accepted ? 'Thanks — accepted from now on!' : showCorrect ? 'Ofareen!' : 'Lahudwalillah!'}
+              {accepted ? t('Thanks — accepted from now on!') : showCorrect ? 'Ofareen!' : 'Lahudwalillah!'}
             </div>
-            {status === 'wrong' && !accepted && answerItem && <div className="text-sm font-black uppercase text-cardinal-dark">Correct answer:</div>}
+            {status === 'wrong' && !accepted && answerItem && <div className="text-sm font-black uppercase text-cardinal-dark">{t('Correct answer:')}</div>}
             {answerItem && (
               <div className={`mt-1 text-lg font-bold ${showCorrect ? 'text-feather-dark' : 'text-cardinal-dark'}`}>
-                <DariText item={answerItem} /> <span className="font-semibold">— {answerItem.en}</span>
-                {answerItem.notes && <div className="text-sm font-semibold opacity-80">{answerItem.notes}</div>}
+                <DariText item={answerItem} /> <span className="font-semibold">— {meaning(answerItem)}</span>
+                {notes(answerItem) && <div className="text-sm font-semibold opacity-80">{notes(answerItem)}</div>}
               </div>
             )}
             <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm font-extrabold uppercase">
               {exerciseItemIds(ex).length === 1 && (
-                <button type="button" className="chip px-3 py-1.5 text-xs uppercase text-sky-dark" onClick={() => setFixing(exerciseItemIds(ex)[0])}>✏️ Fix or record this phrase</button>
+                <button type="button" className="chip px-3 py-1.5 text-xs uppercase text-sky-dark" onClick={() => setFixing(exerciseItemIds(ex)[0])}>{t('✏️ Fix or record this phrase')}</button>
               )}
               {status === 'wrong' && ex.kind === 'wordbank' && value && !accepted && (
                 <button type="button" className="text-wolf" onClick={() => { acceptAnswer(ex.itemId, value); setAccepted(true) }}>
-                  ✓ My answer is also correct
+                  {t('✓ My answer is also correct')}
                 </button>
               )}
             </div>
           </div>
         )}
         {status === 'idle' ? (
-          <button type="button" className="btn btn-green" disabled={!value} onClick={check}>Check</button>
+          <button type="button" className="btn btn-green" disabled={!value} onClick={check}>{t('Check')}</button>
         ) : (
-          <button type="button" className={`btn ${showCorrect ? 'btn-green' : 'btn-red'}`} onClick={next}>Continue</button>
+          <button type="button" className={`btn ${showCorrect ? 'btn-green' : 'btn-red'}`} onClick={next}>{t('Continue')}</button>
         )}
       </footer>
 

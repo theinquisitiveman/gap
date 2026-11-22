@@ -1,4 +1,5 @@
 import { clear, createStore, del, get, keys, set } from 'idb-keyval'
+import type { Lang } from './content'
 import type { Corrections } from './types'
 import { emptyProgress, type Progress } from './progress'
 
@@ -7,8 +8,13 @@ export interface Settings {
   /** Fall back to the device's Persian voice when no Kabuli recording exists (accent is Iranian). */
   ttsFallback: boolean
   reviewerName: string
+  /** Language for meanings, notes and the app's own text. */
+  lang: Lang
 }
-export const defaultSettings: Settings = { showScript: true, ttsFallback: false, reviewerName: '' }
+export const defaultSettings: Settings = {
+  showScript: true, ttsFallback: false, reviewerName: '',
+  lang: typeof navigator !== 'undefined' && navigator.language?.toLowerCase().startsWith('de') ? 'de' : 'en',
+}
 
 const store = createStore('gap', 'kv')
 const audioStore = createStore('gap-audio', 'recordings')
